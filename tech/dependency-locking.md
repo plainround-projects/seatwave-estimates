@@ -89,7 +89,7 @@ org.opentest4j:opentest4j:1.3.0=testCompileClasspath,testRuntimeClasspath
 ```
 
 - `org.jspecify:jspecify:1.0.1` carries nullness annotations (`@Nullable`) that Instancio uses; test classpaths only.
-- Five `org.junit.jupiter` lines: `junit-jupiter-api` (the annotations such as `@Test`), `junit-jupiter-engine` (finds and runs tests; only at run time, so only `testRuntimeClasspath`), `junit-jupiter-params` (parameterized tests), and `junit-jupiter` (the bundle that brings them together). All at 6.1.3.
+- Four `org.junit.jupiter` lines: `junit-jupiter-api` (the annotations such as `@Test`), `junit-jupiter-engine` (finds and runs tests; only at run time, so only `testRuntimeClasspath`), `junit-jupiter-params` (parameterized tests), and `junit-jupiter` (the bundle that brings them together). All at 6.1.3.
 - Three `org.junit.platform` lines: `junit-platform-commons`, `junit-platform-engine` (run time only) and `junit-platform-launcher` (run time only, the one the build file adds with `testRuntimeOnly`).
 - `org.junit:junit-bom:6.1.3` is the bill of materials from `platform(...)`.
 - `org.opentest4j:opentest4j:1.3.0` defines the `AssertionFailedError` that tests throw when a check fails.
