@@ -152,6 +152,7 @@ seatwave-estimates/
   gradle.lockfile             Pinned transitive versions (settings-gradle.lockfile does the same for settings)
   probe.properties            Every setting of the latency probe; no defaults in code
   sheets/                     The estimation sheets, as CSV files
+  tech/                       Beginner notes: one file per technology, plus line-by-line walkthroughs
   src/main/java/io/plainround/seatwave/estimates/
     units/                    Unit, Dimension and Quantity: a number is never without its unit
     estimate/                 Sheet reader, input rules, estimator, sensitivity check, report, the estimate command
@@ -159,6 +160,10 @@ seatwave-estimates/
   src/test/java/io/plainround/seatwave/estimates/
     units/ estimate/ probe/   Tests for each package, including the shipped sheets
 ```
+
+## Technology notes
+
+The `tech/` folder explains every technology this repository uses, from zero: Java, Gradle and its wrapper scripts, the version catalog, dependency locking, the formatter, the coverage tool, the test libraries, the CSV and properties formats, Docker Compose, EditorConfig and Git. Six more files walk through the main code and the tests line by line. Start at `tech/README.md`, which gives a reading order.
 
 ## What is simplified for teaching
 
