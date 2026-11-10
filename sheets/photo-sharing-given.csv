@@ -1,0 +1,36 @@
+# Lab 3: the estimate handed to you. One line holds a factor-of-1,000 mistake. Find it.
+# Run it, read the five-line estimate, and check each line against something you know.
+quantity,value,unit,source
+daily_active_users,50_000_000,users,The interview question: 50 million daily users
+requests_per_user_per_day,50,requests/user/day,"40 photo views and 10 other calls (feed, likes, profile) per user (assumed)"
+peak_factor,3,ratio,No on-sale: the evening hour runs at about three times the daily average (assumed)
+write_share,0.2,percent,0.1 uploads per user per day out of 50 requests
+request_bytes,4_500,bytes,"(0.1 x 2,000,000 upload + 49.9 x 500) / 50: uploads dominate what comes in"
+response_bytes,160_400,bytes,"(40 x 200,000 display-size photo + 10 x 2,000) / 50 (assumed sizes)"
+horizon_years,5,years,The same five-year horizon as SeatWave
+store.photos.items_per_day,5_000_000,items/day,One in ten daily users uploads one photo (assumed)
+store.photos.bytes_per_item,2_000,bytes,"About 2,000 KB: the original plus three resized copies (assumed)"
+store.photos.retention_days,1_825,days,Photos are kept for good; the five-year horizon caps the count
+store.photos.replication_factor,1,copies,"Object storage keeps its own copies inside its price; a store you run yourself would need 3"
+store.photos.index_overhead,1,ratio,Files have no index; their metadata does
+store.metadata.items_per_day,5_000_000,items/day,One metadata row per photo
+store.metadata.bytes_per_item,1_000,bytes,"Owner, caption, time, location, file keys (assumed)"
+store.metadata.retention_days,1_825,days,Kept as long as the photo
+store.metadata.replication_factor,3,copies,A primary and two replicas
+store.metadata.index_overhead,1.5,ratio,Indexes on owner and time (assumed)
+store.logs.items_per_day,2_500_000_000,items/day,One log line per request
+store.logs.bytes_per_item,1_000,bytes,1 KB per log line
+store.logs.retention_days,30,days,30 days of logs (assumed)
+store.logs.replication_factor,3,copies,Three copies
+store.logs.index_overhead,1,ratio,No index
+cache_keys,35_000_000,keys,Metadata of the last 7 days of photos: 7 x 5_000_000
+cache_hot_share,20,percent,Most views go to the newest fifth of recent photos (assumed)
+cache_entry_bytes,1_000,bytes,One metadata row
+cache_overhead,1.5,ratio,"Small values pay more for keys and headers, about half on top (assumed)"
+knee_per_server,800,requests/s,"Module 1 reference machine, used as a stand-in for an API server; photo bytes come from object storage (assumed)"
+utilization_target,70,percent,Module 1 and Module 2
+headroom,20,percent,Same as SeatWave (assumed)
+spare_servers,1,servers,One spare
+server_price,0.2016,USD/hour,"Module 1: m7i.xlarge on demand, us-east-1, checked 8 November 2026"
+egress_price,0.09,USD/GB,"AWS Price List API, us-east-1, first 10 TB a month, checked 10 November 2026; an upper bound"
+storage_price,0.023,USD/GB-month,"AWS Price List API, S3 Standard, us-east-1, checked 10 November 2026"

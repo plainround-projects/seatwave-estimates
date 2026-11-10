@@ -1,0 +1,40 @@
+# Lab 1: the PRODUCTION sheet with three unit slips and one missing line. The program must reject it.
+# Fix every rejected line, then compare your file with seatwave-production.csv.
+quantity,value,unit,source
+daily_active_users,5_000_000,users,Marketing forecast for the national tour: 5 million daily users (assumed)
+requests_per_user_per_day,20,requests/user/day,"Module 1: 20 requests per visit; the mix is 4 event pages, 12 seat maps, 1 poster, 2 holds, 1 confirm"
+peak_factor,26,ratio,"Sale: 1,000,000 fans x 6 requests / 300 s x 1.5 first-minute bunching = 30,000 requests/s; 30,000 / 1,157 = 25.9, rounded up"
+write_share,15,percent,"3 of the 20 requests write: 2 holds and 1 confirm; the other 17 read"
+request_bytes,300,bytes,Module 1: a hold request is about 300 bytes with headers; reads are smaller
+response_bytes,305_696,bits,"The seat-map team quoted the average response in bits: 38,212 bytes x 8"
+horizon_years,5,years,"The prompt: five years of bookings, posters and logs"
+store.bookings.items_per_day,500_000,items/day,One in ten daily users books (assumed)
+store.bookings.bytes_per_item,2,KB,2 KB per booking row
+store.bookings.retention_days,2_555,days,Module 2: booking records kept 7 years (7 x 365 days)
+store.bookings.replication_factor,3,copies,A primary and two replicas
+store.bookings.index_overhead,1.5,ratio,Indexes on customer and event add about half again (assumed)
+store.seats.items_per_day,600_000,items/day,30 new events a day x 20_000 seats (assumed)
+store.seats.bytes_per_item,100,bytes,"One seat row: event, section, label, status, hold id and expiry (assumed)"
+store.seats.retention_days,2_555,days,Kept as long as the bookings that point at them
+store.seats.replication_factor,3,copies,Same database as bookings
+store.seats.index_overhead,1.5,ratio,Same as bookings (assumed)
+store.logs.items_per_day,100_000_000,items/day,One access-log line per request: rate.per_day
+store.logs.bytes_per_item,1_000,bytes,1 KB per log line (Module 1)
+store.logs.retention_days,90,days,Logs kept 90 days (assumed operations policy)
+store.logs.replication_factor,3,copies,The log store keeps three copies
+store.logs.index_overhead,1,ratio,Logs are searched by scanning; no index counted
+store.posters.items_per_day,30,items/day,One poster per new event: 30 events a day (assumed)
+store.posters.bytes_per_item,300_000,bytes,300 KB per poster image
+store.posters.retention_days,2_555,days,Kept with the event records
+store.posters.replication_factor,1,copies,Object storage keeps its own copies inside its price
+store.posters.index_overhead,1,ratio,Files have no index
+cache_keys,400_000,keys,"20,000 events open for booking x 20 sections: one seat map per section"
+cache_hot_share,5,percent,"About 1,000 events on sale this week out of 20,000 open (assumed)"
+cache_entry_bytes,37_000,bytes,One seat map (Module 1)
+cache_overhead,1.25,ratio,"Key, object headers and table slots, about a quarter on top for 37 KB values (assumed)"
+knee_per_server,69_120_000,requests/day,The Module 1 knee of 800 requests/s written per day: 800 x 86_400
+utilization_target,70,percent,Module 1 and Module 2: plan at 70 percent of the knee
+spare_servers,1,servers,One machine can fail or be deployed without losing capacity
+server_price,0.2016,USD/hour,"Module 1: m7i.xlarge on demand, us-east-1, checked 8 November 2026"
+egress_price,0.09,USD/GB,"AWS Price List API, us-east-1, first 10 TB a month, checked 10 November 2026; later tiers are cheaper, so this is an upper bound"
+storage_price,0.023,USD/GB-month,"AWS Price List API, S3 Standard, us-east-1, first 50 TB, checked 10 November 2026"
